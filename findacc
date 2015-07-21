@@ -1,0 +1,33 @@
+#!/bin/sh
+
+touch ~/accounts.txt
+
+help() {
+        echo "Usage:";
+        echo "findacc.sh <account_name>";
+	echo "Searches defined in second paramater account";
+}
+
+if [ $# -eq 1 ]; then
+	if [ "$2" = "--help" ]; then
+		help
+		exit
+	fi
+
+	if [ "$2" = "-h" ]; then
+		help
+		exit
+	fi
+
+	search=$(tac ~/accounts.txt | grep -wi --max-count 1 $1)
+
+	if [ "$search" != "" ]; then
+        	echo "Already added:"
+        	echo $search
+        	exit
+	else
+		echo "Not found!"
+	fi
+else
+	help
+fi

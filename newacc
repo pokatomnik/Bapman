@@ -1,0 +1,42 @@
+#!/bin/sh
+
+touch ~/accounts.txt
+
+help() {
+        echo "Usage:";
+        echo "newacc.sh <account_name> [comment]";
+        echo "account is a name which will be written";
+        echo "to a text database named accounts.txt";
+}
+
+if [ $# = 0 ]; then
+	help
+	exit
+else if [ $1 = '--help' ]; then
+        help
+	exit
+else if [ $1 = '-h' ]; then
+	help
+        exit
+fi
+fi
+fi
+
+if [ $# = 2 ]; then
+	acc=$1
+	pass=$(pwgen -cn 10 1)
+	tm=$(date +%d.%m.%Y-%H:%M:%S)
+	comment=$2
+	echo "Add OK:"
+	echo "$tm $acc : $pass : $comment" >> ~/accounts.txt
+	echo "$tm $acc : $pass : $comment"
+else
+	if [ $# = 1 ]; then
+	        acc=$1
+        	pass=$(pwgen -cn 10 1)
+        	tm=$(date +%d.%m.%Y-%H:%M:%S)
+		echo "Add OK:"
+        	echo "$tm $acc : $pass" >> ~/accounts.txt
+		echo "$tm $acc : $pass"
+	fi
+fi
